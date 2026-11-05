@@ -67,7 +67,7 @@
   ];
   const marker=p=>`<button type="button" class="potala-map-marker" data-action="place-${p.id}" aria-label="${p.name}，客流量${p.load}格" style="left:${p.x}%;top:${p.y/0.79}%;"><span class="potala-place-name">${p.name}</span><span class="potala-traffic"><span>人流量</span><span class="potala-traffic-bars">${[1,2,3,4,5].map(n=>`<i class="${n<=p.load?'is-filled':''}"></i>`).join('')}</span></span></button>`;
   const wheelFiles=['Group 1756.png','Group 1757.png','Group 1758.png'];
-  const wheelMarkup=()=>current==='blessing'?`<div class="potala-wheel-stage" aria-hidden="true"><img class="potala-wheel-background" src="${folder}image%20147.png" alt="" loading="lazy" decoding="async" draggable="false">${wheelFiles.map((name,i)=>`<img class="potala-wheel-object" data-wheel-index="${i+1}" src="${folder+encodeURIComponent(name)}" alt="" loading="lazy" decoding="async" draggable="false">`).join('')}<span class="potala-wheel-instruction">顺时针滑动即刻祈福</span></div>`:'';
+  const wheelMarkup=()=>current==='blessing'?`<div class="potala-wheel-stage" aria-hidden="true"><img class="potala-wheel-background" src="${folder}iPhone%2016%20Pro%20Max%20-%2060.png" alt="" loading="lazy" decoding="async" draggable="false">${wheelFiles.map((name,i)=>`<img class="potala-wheel-object" data-wheel-index="${i+1}" src="${folder+encodeURIComponent(name)}" alt="" loading="lazy" decoding="async" draggable="false">`).join('')}<span class="potala-wheel-instruction">顺时针滑动即刻祈福</span></div>`:'';
   function setWheelProgress(progress){
     const stage=host.querySelector('.potala-wheel-stage');if(!stage)return;
     const width=stage.clientWidth,height=stage.clientHeight;
@@ -88,7 +88,7 @@
     if(current==='floors'){
       const height=drawer?63:81.5;
       const art=detailAssets[floor]?`<img class="potala-map-art potala-floor-detail-art" src="${detailAssets[floor].url}" alt="红宫${floor}层高清地图" loading="lazy" decoding="async" draggable="false">`:crop(file,[0,18,100,height],true);
-      const panel=drawer&&floor!==4?`<div class="potala-floor-panel" style="${box(0,75,100,25)}"><img src="${folder}10-layer-map-04-alternative.png" alt="楼层信息卡" loading="lazy" decoding="async" draggable="false"></div>`:'';
+      const panel='';
       return `<div class="potala-map-viewport potala-floor-viewport" data-gesture="map" style="top:12%;height:${height}%"><div class="potala-map-world">${art}</div></div><div class="potala-floor-header" style="${box(0,0,100,18)}">${crop(file,[0,0,100,18])}</div><div class="potala-original-control potala-floor-controls" style="${box(86,12.8,10,16.5)}">${crop(file,[86,12.8,10,16.5])}</div>${panel}<div class="potala-drawer-gesture" data-gesture="drawer" role="button" tabindex="0" aria-label="${drawer?'向下滑动收起信息卡':'向上滑动查看信息卡'}" style="${box(0,drawer?75:93.5,100,drawer?25:6.5)}"></div>`;
     }
     return '';

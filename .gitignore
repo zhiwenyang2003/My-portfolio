@@ -1,0 +1,30 @@
+# Local deployment packages (do not upload archives to the repository)
+*.zip
+cloudbase-upload.zip
+zhiwen-portfolio-upload*.zip
+
+# Local backups, screenshots and one-off preparation outputs
+asset-backup-*/
+incoming-images/
+*.jpg
+!dist/**/*.jpg
+new-images-contact-sheet.jpg
+old-covers-contact-sheet.jpg
+
+# Local helper state and generated reports
+.deploy-tools/
+.openai/potala-check/
+.openai/check-potala.cjs
+build-herbal-stems.cjs
+optimize-project-covers.py
+package-deploy.py
+prepare-book-pages.py
+prepare-deploy-images.py
+refresh-book-previews.py
+herbal-mockups-test.webp
+
+# Keep source text and the optimized publication copy; exclude the unoptimized
+# high-resolution source image tree from GitHub. deploy-dist is the Pages input.
+dist/images/potala-prototype/*.png
+dist/images/potala-prototype/*.jpg
+dist/images/potala-prototype/*.jpeg

@@ -8,6 +8,7 @@ asset-backup-*/
 incoming-images/
 *.jpg
 !dist/**/*.jpg
+!deploy-dist/**/*.jpg
 new-images-contact-sheet.jpg
 old-covers-contact-sheet.jpg
 

@@ -47,7 +47,7 @@
   const loadFloorDetail=n=>{
     if(detailAssets[n]||detailLoading.has(n))return;
     detailLoading.add(n);
-    const file=`10-layer-map-0${n}-detail.png`,image=new Image();
+    const file=`10-layer-map-0${n}-detail.jpg`,image=new Image();
     image.onload=()=>{detailAssets[n]={url:folder+file,ratio:image.naturalWidth/image.naturalHeight};detailLoading.delete(n);if(current==='floors'&&floor===n)render();};
     image.onerror=()=>detailLoading.delete(n);
     image.src=folder+file;

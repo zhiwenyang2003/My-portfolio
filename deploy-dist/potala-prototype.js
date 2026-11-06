@@ -88,8 +88,10 @@
     if(current==='floors'){
       const height=drawer?68:81.5;
       const art=detailAssets[floor]?`<img class="potala-map-art potala-floor-detail-art" src="${detailAssets[floor].url}" alt="红宫${floor}层高清地图" loading="lazy" decoding="async" draggable="false">`:crop(file,[0,18,100,height],true);
-      const panel=`<div class="potala-floor-panel${drawer?' is-open':''}" style="${box(0,drawer?80:92,100,drawer?20:8)};visibility:${drawer?'visible':'hidden'}"><svg viewBox="0 3050 1760 774" preserveAspectRatio="none" aria-hidden="true"><image href="${folder}10-layer-map-04-alternative.png" x="0" y="0" width="1760" height="3824"/></svg></div>`;
-      return `<div class="potala-map-viewport potala-floor-viewport" data-gesture="map" style="top:12%;height:${height}%"><div class="potala-map-world">${art}</div><div class="potala-floor-controls">${spots.floors.filter(([a])=>a.startsWith('floor-')).map(s=>hit(s)).join('')}</div></div>${panel}<div class="potala-drawer-gesture" data-gesture="drawer" role="button" tabindex="0" aria-label="${drawer?'向下滑动收起信息卡':'向上滑动查看信息卡'}" style="${box(0,drawer?80:92,100,drawer?20:8)}"></div>`;
+      const panel=`<div class="potala-floor-panel${drawer?' is-open':''}" style="${box(0,drawer?78:92,100,drawer?22:8)};visibility:${drawer?'visible':'hidden'}"><svg viewBox="0 0 1760 3824" preserveAspectRatio="none" aria-hidden="true"><image href="${folder}10-layer-map-04-alternative.png" x="0" y="0" width="1760" height="3824"/></svg></div>`;
+      const header=`<div class="potala-floor-header" style="${box(0,0,100,18)}">${crop(file,[0,0,100,18],true)}</div>`;
+      const controls=`<div class="potala-floor-controls"><div class="potala-floor-status">${crop(file,[70,8,26,6],true)}</div>${spots.floors.filter(([a])=>a==='back').map(s=>hit(s)).join('')}${spots.floors.filter(([a])=>a.startsWith('floor-')).map(s=>hit(s)).join('')}</div>`;
+      return `${header}<div class="potala-map-viewport potala-floor-viewport" data-gesture="map" style="top:12%;height:${height}%"><div class="potala-map-world">${art}</div></div>${controls}${panel}<div class="potala-drawer-gesture" data-gesture="drawer" role="button" tabindex="0" aria-label="${drawer?'向下滑动收起信息卡':'向上滑动查看信息卡'}" style="${box(0,drawer?78:92,100,drawer?22:8)}"></div>`;
     }
     return '';
   }
@@ -207,8 +209,8 @@
     if(gesture.kind==='drawer'){
       const screen=host.querySelector('.potala-phone-screen'),panel=host.querySelector('.potala-floor-panel'),viewport=host.querySelector('.potala-map-viewport'),zone=host.querySelector('.potala-drawer-gesture');
       if(screen&&panel&&viewport&&zone){
-        const r=screen.getBoundingClientRect(),startTop=drawer?80:92;
-        const top=Math.max(80,Math.min(92,startTop+(p.y-gesture.start.y)/r.height*100));
+        const r=screen.getBoundingClientRect(),startTop=drawer?78:92;
+        const top=Math.max(78,Math.min(92,startTop+(p.y-gesture.start.y)/r.height*100));
         gesture.drawerTop=top;panel.style.transition='none';viewport.style.transition='none';panel.style.visibility='visible';panel.style.top=top+'%';panel.style.height=(100-top)+'%';viewport.style.height=(top-12)+'%';zone.style.top=top+'%';zone.style.height=(100-top)+'%';
       }
     }
@@ -233,11 +235,11 @@
     }
     if(g.kind==='drawer'){
       const screen=host.querySelector('.potala-phone-screen'),panel=host.querySelector('.potala-floor-panel'),viewport=host.querySelector('.potala-map-viewport'),zone=host.querySelector('.potala-drawer-gesture');
-      const next=g.moved?(g.drawerTop??(drawer?80:92))<86:!drawer;
+      const next=g.moved?(g.drawerTop??(drawer?78:92))<85:!drawer;
       drawer=next;
       if(screen&&panel&&viewport&&zone){
-        const top=drawer?80:92,height=drawer?20:8;
-        panel.style.transition='';viewport.style.transition='';panel.classList.toggle('is-open',drawer);panel.style.visibility=drawer?'visible':'hidden';panel.style.top=top+'%';panel.style.height=height+'%';viewport.style.height=(drawer?68:81.5)+'%';zone.style.top=top+'%';zone.style.height=height+'%';zone.setAttribute('aria-label',drawer?'向下滑动收起信息卡':'向上滑动查看信息卡');
+        const top=drawer?78:92,height=drawer?22:8;
+        panel.style.transition='';viewport.style.transition='';panel.classList.toggle('is-open',drawer);panel.style.visibility=drawer?'visible':'hidden';panel.style.top=top+'%';panel.style.height=height+'%';viewport.style.height=(drawer?66:81.5)+'%';zone.style.top=top+'%';zone.style.height=height+'%';zone.setAttribute('aria-label',drawer?'向下滑动收起信息卡':'向上滑动查看信息卡');
         window.setTimeout(()=>{if(current==='floors'&&drawer===next)setupMap();},320);
       }
       return;

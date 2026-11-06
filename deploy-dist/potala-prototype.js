@@ -41,7 +41,7 @@
   const hit=([action,label,x,y,w,h],extra='')=>`<button type="button" class="potala-hotspot" data-action="${action}" aria-label="${esc(label)}" style="${box(x,y,w,h)}" ${extra}></button>`;
   // Reuse original pixels for fixed controls and map labels, without redrawing them.
   const crop=(file,[x,y,w,h],maskFloorUi=false)=>`<svg viewBox="${x*17.6} ${y*38.24} ${w*17.6} ${h*38.24}" preserveAspectRatio="none" aria-hidden="true"><image href="${folder+file}" width="1760" height="3824"/>${maskFloorUi?'<rect x="0" y="268" width="1760" height="688" fill="#fffad9"/>':''}</svg>`;
-  const fileFor=()=>current==='floors'?(drawer&&floor===4?'10-layer-map-04-alternative.png':floor===1?'10-layer-map.png':`10-layer-map-0${floor}.png`):current==='blessing'&&blessing>1?`08-blessing-0${blessing}.png`:byId[current].file;
+  const fileFor=()=>current==='floors'?floor===1?'10-layer-map.png':`10-layer-map-0${floor}.png`:current==='blessing'?'iPhone 16 Pro Max - 60.png':byId[current].file;
   function tell(message){status=message;const n=host.querySelector('.potala-toast');if(n)n.textContent=message;}
   const detailLoading=new Set();
   const loadFloorDetail=n=>{
@@ -67,8 +67,7 @@
   ];
   const marker=p=>`<button type="button" class="potala-map-marker" data-action="place-${p.id}" aria-label="${p.name}，客流量${p.load}格" style="left:${p.x}%;top:${p.y/0.79}%;"><span class="potala-place-name">${p.name}</span><span class="potala-traffic"><span>人流量</span><span class="potala-traffic-bars">${[1,2,3,4,5].map(n=>`<i class="${n<=p.load?'is-filled':''}"></i>`).join('')}</span></span></button>`;
   const wheelFiles=['Group 1756.png','Group 1757.png','Group 1758.png'];
-  const wheelMarkup=()=>current==='blessing'?`<div class="potala-wheel-stage" aria-hidden="true"><img class="potala-wheel-background" src="${folder}iPhone%2016%20Pro%20Max%20-%2060.png" alt="" loading="lazy" decoding="async" draggable="false">${wheelFiles.map((name,i)=>`<img class="potala-wheel-object" data-wheel-index="${i+1}" src="${folder+encodeURIComponent(name)}" alt="" loading="lazy" decoding="async" draggable="false">`).join('')}<span class="potala-wheel-instruction">顺时针滑动即刻祈福</span></div>`:'';
-  const blessingChrome=()=>current==='blessing'?`<div class="potala-blessing-chrome" aria-hidden="true"><span style="${box(4.4,7.5,8.4,3.9)}">${crop('08-blessing.png',[4.4,7.5,8.4,3.9])}</span><span style="${box(87.2,7.5,8.3,3.9)}">${crop('08-blessing.png',[87.2,7.5,8.3,3.9])}</span><span style="${box(87.2,13.5,8.3,3.9)}">${crop('08-blessing.png',[87.2,13.5,8.3,3.9])}</span></div>`:'';
+  const wheelMarkup=()=>current==='blessing'?`<div class="potala-wheel-stage" aria-hidden="true">${wheelFiles.map((name,i)=>`<img class="potala-wheel-object" data-wheel-index="${i+1}" src="${folder+encodeURIComponent(name)}" alt="" loading="lazy" decoding="async" draggable="false">`).join('')}</div>`:'';
   function setWheelProgress(progress){
     const stage=host.querySelector('.potala-wheel-stage');if(!stage)return;
     const width=stage.clientWidth,height=stage.clientHeight;
@@ -89,8 +88,8 @@
     if(current==='floors'){
       const height=drawer?68:81.5;
       const art=detailAssets[floor]?`<img class="potala-map-art potala-floor-detail-art" src="${detailAssets[floor].url}" alt="红宫${floor}层高清地图" loading="lazy" decoding="async" draggable="false">`:crop(file,[0,18,100,height],true);
-      const panel=`<div class="potala-floor-panel${drawer?' is-open':''}" style="${box(0,drawer?80:92,100,drawer?20:8)};visibility:${drawer?'visible':'hidden'}"><img src="${folder}10-layer-map-04-alternative.png" alt="楼层信息卡" loading="lazy" decoding="async" draggable="false"></div>`;
-      return `<div class="potala-map-viewport potala-floor-viewport" data-gesture="map" style="top:12%;height:${height}%"><div class="potala-map-world">${art}</div></div><div class="potala-floor-header" style="${box(0,0,100,18)}">${crop(file,[0,0,100,18])}</div><div class="potala-original-control potala-floor-controls" style="${box(86,12.8,10,16.5)}">${crop(file,[86,12.8,10,16.5])}</div>${panel}<div class="potala-drawer-gesture" data-gesture="drawer" role="button" tabindex="0" aria-label="${drawer?'向下滑动收起信息卡':'向上滑动查看信息卡'}" style="${box(0,drawer?80:92,100,drawer?20:8)}"></div>`;
+      const panel=`<div class="potala-floor-panel${drawer?' is-open':''}" style="${box(0,drawer?80:92,100,drawer?20:8)};visibility:${drawer?'visible':'hidden'}"></div>`;
+      return `<div class="potala-map-viewport potala-floor-viewport" data-gesture="map" style="top:12%;height:${height}%"><div class="potala-map-world">${art}</div></div><div class="potala-floor-header" style="${box(0,0,100,18)}">${crop(file,[0,0,100,18])}</div>${panel}<div class="potala-drawer-gesture" data-gesture="drawer" role="button" tabindex="0" aria-label="${drawer?'向下滑动收起信息卡':'向上滑动查看信息卡'}" style="${box(0,drawer?80:92,100,drawer?20:8)}"></div>`;
     }
     return '';
   }
@@ -123,7 +122,7 @@
   }
   function render(){
     const file=fileFor(),version=++loadVersion;
-    host.innerHTML=`<div class="potala-prototype-layout"><div class="potala-phone-column"><div class="potala-phone"><div class="potala-phone-screen" data-screen="${current}" aria-label="${byId[current].title}"><img class="potala-screen-image" src="${folder+file}" alt="${byId[current].title}" loading="lazy" decoding="async" draggable="false">${mapMarkup(file)}${wheelMarkup(file)}${blessingChrome()}${screenHits()}</div></div><p class="potala-proto-help">${['map','floors'].includes(current)?'拖动查看地图 · 双指或滚轮缩放 · 双击复位':current==='blessing'?'左右拖动切换转经筒':'点击画面中原有的按钮进行体验'}</p><div class="potala-toast" role="status" aria-live="polite">${esc(status)}</div></div><div class="potala-screen-index"><h3>页面索引</h3><div class="potala-screen-grid">${screens.map(s=>`<button type="button" class="potala-screen-tile${s.id===current?' is-active':''}" data-action="${s.id}" aria-label="打开${s.title}"><span class="potala-screen-thumb"><img src="${folder+s.file}" alt="" loading="lazy" decoding="async"></span><span>${s.title}</span></button>`).join('')}</div></div></div>`;
+    host.innerHTML=`<div class="potala-prototype-layout"><div class="potala-phone-column"><div class="potala-phone"><div class="potala-phone-screen" data-screen="${current}" aria-label="${byId[current].title}"><img class="potala-screen-image" src="${folder+file}" alt="${byId[current].title}" loading="lazy" decoding="async" draggable="false">${mapMarkup(file)}${wheelMarkup()}${screenHits()}</div></div><p class="potala-proto-help">${['map','floors'].includes(current)?'拖动查看地图 · 双指或滚轮缩放 · 双击复位':'点击画面中原有的按钮进行体验'}</p><div class="potala-toast" role="status" aria-live="polite">${esc(status)}</div></div><div class="potala-screen-index"><h3>页面索引</h3><div class="potala-screen-grid">${screens.map(s=>`<button type="button" class="potala-screen-tile${s.id===current?' is-active':''}" data-action="${s.id}" aria-label="打开${s.title}"><span class="potala-screen-thumb"><img src="${folder+s.file}" alt="" loading="lazy" decoding="async"></span><span>${s.title}</span></button>`).join('')}</div></div></div>`;
     host.querySelector('.potala-screen-image').addEventListener('error',()=>{if(version===loadVersion)tell(`图片未加载：${file}`);});
     if(['map','floors'].includes(current))setupMap();
     if(current==='blessing')setWheelProgress(0);

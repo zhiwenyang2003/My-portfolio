@@ -88,8 +88,8 @@
     if(current==='floors'){
       const height=drawer?68:81.5;
       const art=detailAssets[floor]?`<img class="potala-map-art potala-floor-detail-art" src="${detailAssets[floor].url}" alt="红宫${floor}层高清地图" loading="lazy" decoding="async" draggable="false">`:crop(file,[0,18,100,height],true);
-      const panel=`<div class="potala-floor-panel${drawer?' is-open':''}" style="${box(0,drawer?80:92,100,drawer?20:8)};visibility:${drawer?'visible':'hidden'}"></div>`;
-      return `<div class="potala-map-viewport potala-floor-viewport" data-gesture="map" style="top:12%;height:${height}%"><div class="potala-map-world">${art}</div></div><div class="potala-floor-header" style="${box(0,0,100,18)}">${crop(file,[0,0,100,18])}</div>${panel}<div class="potala-drawer-gesture" data-gesture="drawer" role="button" tabindex="0" aria-label="${drawer?'向下滑动收起信息卡':'向上滑动查看信息卡'}" style="${box(0,drawer?80:92,100,drawer?20:8)}"></div>`;
+      const panel=`<div class="potala-floor-panel${drawer?' is-open':''}" style="${box(0,drawer?80:92,100,drawer?20:8)};visibility:${drawer?'visible':'hidden'}"><svg viewBox="0 3060 1760 764" preserveAspectRatio="none" aria-hidden="true"><image href="${folder}10-layer-map-04-alternative.png" x="0" y="0" width="1760" height="3824"/></svg></div>`;
+      return `<div class="potala-map-viewport potala-floor-viewport" data-gesture="map" style="top:12%;height:${height}%"><div class="potala-map-world">${art}</div></div>${panel}<div class="potala-drawer-gesture" data-gesture="drawer" role="button" tabindex="0" aria-label="${drawer?'向下滑动收起信息卡':'向上滑动查看信息卡'}" style="${box(0,drawer?80:92,100,drawer?20:8)}"></div>`;
     }
     return '';
   }

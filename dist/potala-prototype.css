@@ -25,7 +25,8 @@
 .potala-floor-detail-art{height:100%;object-fit:fill}
 .potala-floor-header{position:absolute;z-index:3;pointer-events:none;mask-image:linear-gradient(to bottom,#000 0 75%,transparent 100%)}
 .potala-floor-controls{display:none}
-.potala-floor-panel{position:absolute;z-index:5;overflow:hidden;pointer-events:none;transition:top .28s ease,height .28s ease;border-radius:26px 26px 0 0;background:transparent}
+.potala-floor-panel{position:absolute;z-index:5;overflow:hidden;pointer-events:none;transition:top .28s ease,height .28s ease;border-radius:26px 26px 0 0;background:#dceeff}
+.potala-floor-panel svg{display:block;width:100%;height:100%;overflow:hidden;pointer-events:none}
 .potala-floor-panel.is-open{box-shadow:0 -2px 7px #7773}
 .potala-floor-viewport{transition:height .28s ease}
 .potala-drawer-gesture{position:absolute;z-index:6;touch-action:none;cursor:grab}

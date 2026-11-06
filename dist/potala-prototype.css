@@ -17,6 +17,7 @@
 .potala-original-control svg,.potala-map-world>svg,.potala-floor-header svg,.potala-floor-panel svg,.potala-wheel-object svg{display:block;width:100%;height:100%;overflow:hidden;pointer-events:none}
 .potala-map-viewport{position:absolute;z-index:2;left:0;width:100%;overflow:hidden;background:#b4daff;touch-action:none;user-select:none;cursor:default}
 .potala-floor-viewport{background:#fffad9}
+.potala-phone-screen[data-screen="floors"]{background:#fffad9}
 .potala-map-world{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
 .potala-map-art{display:block;width:100%;height:auto;pointer-events:none;user-select:none}
 .potala-map-switch{position:absolute;z-index:5;left:38.47%;top:86.4%;width:22.9%;height:2.04%;overflow:hidden;border-radius:2px;pointer-events:none}
@@ -24,8 +25,10 @@
 .potala-floor-detail-art{height:100%;object-fit:fill}
 .potala-floor-header{position:absolute;z-index:3;pointer-events:none;mask-image:linear-gradient(to bottom,#000 0 75%,transparent 100%)}
 .potala-floor-controls{z-index:4}
-.potala-floor-panel{position:absolute;z-index:5;overflow:hidden;pointer-events:none}
-.potala-floor-panel img{position:absolute;left:0;bottom:0;display:block;width:100%;height:400%;object-fit:fill}
+.potala-floor-panel{position:absolute;z-index:5;overflow:hidden;pointer-events:none;transition:top .28s ease,height .28s ease;border-radius:26px 26px 0 0;background:#fffad9}
+.potala-floor-panel img{position:absolute;left:0;bottom:0;display:block;width:100%;height:auto;max-width:none;object-fit:initial}
+.potala-floor-panel.is-open{box-shadow:0 -2px 7px #7773}
+.potala-floor-viewport{transition:height .28s ease}
 .potala-drawer-gesture{position:absolute;z-index:6;touch-action:none;cursor:grab}
 .potala-drawer-gesture:active{cursor:grabbing}
 .potala-drawer-gesture:focus-visible{outline:2px solid #e6aa26;outline-offset:-2px}
@@ -36,9 +39,12 @@
 .potala-traffic-bars{display:flex;flex-direction:column-reverse;align-items:center;gap:2px;padding:2px;background:#fff2af;border-radius:3px}
 .potala-traffic-bars i{display:block;width:7px;height:5px;background:#d7d7d7;border-radius:1px}
 .potala-traffic-bars i.is-filled{background:#ed6c68}
-.potala-wheel-stage{position:absolute;z-index:3;left:0;right:0;top:17%;bottom:3%;overflow:hidden;pointer-events:none;background:#b9e0f5}
-.potala-wheel-background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none}
-.potala-wheel-object{position:absolute;left:13%;top:0;width:74%;height:auto;transform-origin:50% 50%;will-change:transform;user-select:none;pointer-events:none}
+.potala-wheel-stage{position:absolute;z-index:3;inset:0;overflow:hidden;pointer-events:none;background:transparent}
+.potala-wheel-background{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;object-position:center;pointer-events:none}
+.potala-wheel-object{position:absolute;left:13%;top:14%;width:74%;height:74%;object-fit:fill;transform-origin:50% 50%;will-change:transform;user-select:none;pointer-events:none}
+.potala-blessing-chrome{position:absolute;z-index:4;inset:0;pointer-events:none}
+.potala-blessing-chrome>span{position:absolute;display:block;overflow:hidden}
+.potala-blessing-chrome svg{display:block;width:100%;height:100%}
 .potala-wheel-stage.is-finishing .potala-wheel-object{transition:transform .32s cubic-bezier(.25,.62,.25,1)}
 .potala-wheel-instruction{position:absolute;z-index:20;left:50%;bottom:8%;transform:translateX(-50%);padding:2px 5px;border-radius:2px;background:#526d7970;color:#fff;font:10px Alibaba2Local,'Microsoft YaHei',sans-serif;white-space:nowrap}
 .potala-blessing-gesture{position:absolute;z-index:3;left:19%;top:20%;width:62%;height:70%;touch-action:none;cursor:pointer}
